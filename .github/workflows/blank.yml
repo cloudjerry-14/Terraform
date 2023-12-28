@@ -135,20 +135,20 @@ jobs:
         cd terraform-CICD/terraform
         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-        terraform plan -var-file=variables.tfvars
+        terraform plan 
 
     - name: Terraform Apply
       run: |
         cd terraform-CICD/terraform
         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-        terraform apply -var-file=variables.tfvars -auto-approve
+        terraform apply -auto-approve
 
     - name: Terraform Destroy
       run: |
         cd terraform-CICD/terraform
         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-        terraform destroy -var-file=variables.tfvars -auto-approve
+        terraform destroy -auto-approve
 
 

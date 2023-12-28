@@ -1,0 +1,8 @@
+
+# Terraform with AWS practice labs 
+
+This folder contains some Terraform snippets with which we can provision AWS services 
+
+- Creating your first EC2 instance 
+- Creating your first VPC
+- Creating a VPC and Subnet

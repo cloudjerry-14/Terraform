@@ -83,13 +83,13 @@ jobs:
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: |
-        cd terraform-CICD/
+        cd terraform-CICD/terraform
         terraform fmt -check
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: |
-        cd terraform-CICD/
+        cd terraform-CICD/terraform
         terraform plan -input=false
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
@@ -97,5 +97,5 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: |
-        cd terraform-CICD/
+        cd terraform-CICD/terraform
         terraform apply -auto-approve -input=false

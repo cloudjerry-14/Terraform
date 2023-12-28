@@ -1,5 +1,57 @@
-workflow:
-  path: Terraform/terraform-CICD/.github/workflows/ci.yml
+name: Terraform CI/CD
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0
+
+    - name: Terraform Init
+      run: |
+        cd terraform-CICD/terraform
+        terraform init
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-north-1
+
+    - name: Terraform Validate
+      run: |
+        cd terraform-CICD/terraform
+        terraform validate
+
+    - name: Terraform Plan
+      run: |
+        cd terraform-CICD/terraform
+        terraform plan 
+
+    - name: Terraform Apply
+      run: |
+        cd terraform-CICD/terraform
+        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        terraform apply -auto-approve
+
+    - name: Terraform Destroy
+      run: |
+        cd terraform-CICD/terraform
+        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        terraform destroy -auto-approve
 
 

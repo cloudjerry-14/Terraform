@@ -1,5 +1,5 @@
 workflow:
-  path: terraform-CICD/.github/workflows/ci.yml
+  path: Terraform/terraform-CICD/.github/workflows/ci.yml
 
 
 
